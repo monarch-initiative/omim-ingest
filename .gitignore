@@ -141,3 +141,6 @@ test-output/
 
 # Transform logs
 logs/
+
+# Analysis artifacts (not documentation)
+analysis/

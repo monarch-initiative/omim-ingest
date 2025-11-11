@@ -86,14 +86,34 @@ This ingest transforms OMIM morbidmap data into Biolink-compliant gene-to-diseas
 ## Decisions
 
 ### Association Type Selection
-**Confidence (3)** → Causal (molecular basis = causation)
-**Confidence (1,2)** → Correlated (mapping = correlation)
-**Confidence (4)** → Skip (not gene-to-disease)
+- **Confidence (3)** → CausalGeneToDiseaseAssociation (molecular basis = causation)
+- **Confidence (1,2)** → CorrelatedGeneToDiseaseAssociation (mapping = correlation)
+- **Susceptibility {}** → CorrelatedGeneToDiseaseAssociation (predisposition, not direct causation)
+- **Confidence (4)** → Skip (chromosomal abnormalities, not gene-to-disease)
 
 ### Predicate Selection
-**Susceptibility markers** → `biolink:predisposes_to_condition` (overrides confidence)
-**Confidence (3)** → `biolink:causes`
-**Confidence (1,2)** → `biolink:contributes_to`
+
+| OMIM Marker | Predicate | RO Term | Rationale |
+|-------------|-----------|---------|-----------|
+| `{}` (any confidence) | `biolink:predisposes_to_condition` | RO:0019501* | Susceptibility markers indicate predisposition |
+| Confidence (3), no `{}` | `biolink:causes` | RO:0003303 | Molecular basis known = causation |
+| Confidence (1,2), no `{}` | `biolink:contributes_to` | RO:0002326 | Mapping known, mechanism unclear |
+
+*RO:0019501 "confers susceptibility to condition" - not yet in Biolink model but semantically aligned
+
+**Priority Rule:** Susceptibility markers `{}` override confidence levels. Even if molecular basis is known (confidence 3), the presence of `{}` indicates a susceptibility relationship, not direct causation.
+
+**Why predisposes_to_condition for susceptibility?**
+
+OMIM uses `{}` to mark "susceptibility to multifactorial disorders." The Relation Ontology (RO) explicitly defines susceptibility (RO:0019501) as **distinct from** general contribution (RO:0002326), justifying use of the more specific `biolink:predisposes_to_condition` predicate rather than generic `biolink:contributes_to`.
+
+See detailed justification: [predicate_justification.md](predicate_justification.md)
+
+### Comparison with HPOA ETL
+
+Previous HPOA ETL processing of OMIM data used `biolink:contributes_to` for POLYGENIC/susceptibility associations. Our analysis shows 68.7% agreement overall, with disagreements primarily due to our more semantically precise handling of susceptibility (using `predisposes_to_condition`).
+
+See: [comparison_with_hpoa.md](comparison_with_hpoa.md)
 
 ### Exclusions
 - Chromosomal abnormalities (4): ~24 rows
