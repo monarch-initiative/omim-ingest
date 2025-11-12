@@ -3,8 +3,11 @@ repo_url: 'https://github.com/monarch-initiative/omim-ingest'
 site_name: 'omim-ingest'
 site_url: 'https://monarch-initiative.github.io/omim-ingest/'
 
-### Optional: Uncomment the following line to customize the navigation bar
-# nav:
+nav:
+  - Home: index.md
+  - Ingest Documentation: ingest.md
+  - Predicate Justification: predicate_justification.md
+  - Comparison with HPOA: comparison_with_hpoa.md
 
 theme:
     name: 'material'
