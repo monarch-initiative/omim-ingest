@@ -7,20 +7,20 @@ This ingest transforms OMIM morbidmap data into Biolink-compliant gene-to-diseas
 **Source:** OMIM morbidmap.txt
 **URL:** https://rmalenf1.ext.unb.ca/BIOL3933/morbidmap.txt
 **Rows processed:** 7,413 data rows (7,437 total including headers)
-**Associations created:** 5,990 gene-to-disease associations
+**Associations created:** {{ get_total_edges() }} gene-to-disease associations
 
 ## Output
 
-**Total:** 5,990 associations (edges only, no nodes)
+**Total:** {{ get_total_edges() }} associations (edges only, no nodes)
 
 **By Association Type:**
-- **CausalGeneToDiseaseAssociation:** 5,255 (87.7%)
-- **CorrelatedGeneToDiseaseAssociation:** 735 (12.3%)
+- **CausalGeneToDiseaseAssociation:** {{ get_stat('CausalGeneToDiseaseAssociation_count') }} ({{ get_stat('CausalGeneToDiseaseAssociation_pct') }}%)
+- **CorrelatedGeneToDiseaseAssociation:** {{ get_stat('CorrelatedGeneToDiseaseAssociation_count') }} ({{ get_stat('CorrelatedGeneToDiseaseAssociation_pct') }}%)
 
 **By Predicate:**
-- **biolink:causes:** 5,255 (confidence level 3)
-- **biolink:contributes_to:** ~600 (confidence levels 1 and 2)
-- **biolink:predisposes_to_condition:** ~135 (susceptibility cases)
+- **biolink:causes:** {{ get_stat('causes_count') }} ({{ get_stat('causes_pct') }}% - confidence level 3)
+- **biolink:contributes_to:** {{ get_stat('contributes_to_count') }} ({{ get_stat('contributes_to_pct') }}% - confidence levels 1 and 2)
+- **biolink:predisposes_to_condition:** {{ get_stat('predisposes_to_condition_count') }} ({{ get_stat('predisposes_to_condition_pct') }}% - susceptibility cases)
 
 ## Biolink Mappings
 

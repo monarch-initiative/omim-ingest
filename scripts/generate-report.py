@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 
 import duckdb
 
@@ -14,7 +15,10 @@ if Path(nodes_file).exists():
     GROUP BY all
     ORDER BY all
     """
-    duckdb.sql(f"copy ({query}) to 'output/omim_gene_to_disease_nodes_report.tsv' (header, delimiter '\t')")
+    output_path = "output/omim_gene_to_disease_nodes_report.tsv"
+    duckdb.sql(f"copy ({query}) to '{output_path}' (header, delimiter '\t')")
+    # Copy to docs for mkdocs
+    shutil.copy(output_path, "docs/nodes_report.tsv")
 
 # Edges
 if Path(edges_file).exists():
@@ -25,4 +29,7 @@ if Path(edges_file).exists():
     GROUP BY all
     ORDER BY all
     """
-    duckdb.sql(f"copy ({query}) to 'output/omim_gene_to_disease_edges_report.tsv' (header, delimiter '\t')")
+    output_path = "output/omim_gene_to_disease_edges_report.tsv"
+    duckdb.sql(f"copy ({query}) to '{output_path}' (header, delimiter '\t')")
+    # Copy to docs for mkdocs
+    shutil.copy(output_path, "docs/edges_report.tsv")
