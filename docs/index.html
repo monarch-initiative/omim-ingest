@@ -354,6 +354,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -365,6 +378,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#edges-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edges Report
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -456,6 +497,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#edges-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edges Report
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -474,6 +532,41 @@
 
 
 <h1 id="omim-ingest-report">omim-ingest Report</h1>
+<h2 id="edges-report">Edges Report</h2>
+<table>
+<thead>
+<tr>
+<th>category</th>
+<th>subject_prefix</th>
+<th>predicate</th>
+<th>object_prefix</th>
+<th>count_star()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>biolink:CausalGeneToDiseaseAssociation</td>
+<td>OMIM</td>
+<td>biolink:causes</td>
+<td>OMIM</td>
+<td>5255</td>
+</tr>
+<tr>
+<td>biolink:CorrelatedGeneToDiseaseAssociation</td>
+<td>OMIM</td>
+<td>biolink:contributes_to</td>
+<td>OMIM</td>
+<td>45</td>
+</tr>
+<tr>
+<td>biolink:CorrelatedGeneToDiseaseAssociation</td>
+<td>OMIM</td>
+<td>biolink:predisposes_to_condition</td>
+<td>OMIM</td>
+<td>690</td>
+</tr>
+</tbody>
+</table>
 
 
 
