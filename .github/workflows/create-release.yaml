@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Transform
         env:
-          MONARCH_OMIM_API_KEY: ${{ secrets.MONARCH_OMIM_API_KEY }}
+          MONARCH_OMIM_DOWNLOAD_KEY: ${{ secrets.MONARCH_OMIM_DOWNLOAD_KEY }}
         run: |
           make run
           poetry run python scripts/generate-rdf.py

@@ -3,5 +3,5 @@
 ### The configuration is used by `kghub-downloader`.
 ### For more information, see https://github.com/monarch-initiative/kghub-downloader
 ---
-- url: https://data.omim.org/downloads/{MONARCH_OMIM_API_KEY}/morbidmap.txt
+- url: https://data.omim.org/downloads/{MONARCH_OMIM_DOWNLOAD_KEY}/morbidmap.txt
   local_name: data/morbidmap.txt
