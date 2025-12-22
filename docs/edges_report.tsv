@@ -1,3 +1,3 @@
 category	subject_prefix	predicate	object_prefix	count_star()
-biolink:CausalGeneToDiseaseAssociation	OMIM	biolink:causes	OMIM	6995
+biolink:CausalGeneToDiseaseAssociation	OMIM	biolink:causes	OMIM	6999
 biolink:CorrelatedGeneToDiseaseAssociation	OMIM	biolink:contributes_to	OMIM	658
