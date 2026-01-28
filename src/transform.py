@@ -24,13 +24,13 @@ import uuid
 from typing import Any
 
 import koza
-from koza import KozaTransform
 from biolink_model.datamodel.pydanticmodel_v2 import (
+    AgentTypeEnum,
     CausalGeneToDiseaseAssociation,
     CorrelatedGeneToDiseaseAssociation,
     KnowledgeLevelEnum,
-    AgentTypeEnum
 )
+from koza import KozaTransform
 
 
 @koza.transform_record()
@@ -78,8 +78,8 @@ def transform_record(koza_transform: KozaTransform, row: dict[str, Any]) -> list
 
     # Check for special markers
     is_susceptibility = '{' in phenotype  # Susceptibility to multifactorial disorder
-    is_provisional = phenotype.strip().startswith('?')  # Provisional relationship
-    is_nondisease = '[' in phenotype  # Nondisease (genetic variation)
+    _is_provisional = phenotype.strip().startswith('?')  # Provisional relationship (unused, kept for docs)
+    _is_nondisease = '[' in phenotype  # Nondisease (genetic variation) (unused, kept for docs)
 
     # Determine predicate and association type based on confidence and markers
     # Susceptibility markers take precedence to align with HPOA's POLYGENIC classification

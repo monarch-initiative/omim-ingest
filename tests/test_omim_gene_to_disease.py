@@ -25,16 +25,9 @@ https://koza.monarchinitiative.org/Usage/testing/
 """
 
 import pytest
-import sys
-import os
+from biolink_model.datamodel.pydanticmodel_v2 import CausalGeneToDiseaseAssociation, CorrelatedGeneToDiseaseAssociation
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../src'))
-from biolink_model.datamodel.pydanticmodel_v2 import (
-    CausalGeneToDiseaseAssociation,
-    CorrelatedGeneToDiseaseAssociation
-)
-from omim_ingest.transform import transform_record
-
+from transform import transform_record
 
 # Test data fixtures based on actual OMIM morbidmap.txt rows
 
