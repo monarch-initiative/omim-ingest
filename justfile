@@ -31,7 +31,7 @@ download: install
 
 # Run all transforms
 [group('ingest')]
-transform-all:
+transform-all: download
     #!/usr/bin/env bash
     set -euo pipefail
     for t in {{TRANSFORMS}}; do
@@ -40,6 +40,7 @@ transform-all:
             uv run koza transform {{PKG}}/$t.yaml
         fi
     done
+
 
 # Run specific transform
 [group('ingest')]
@@ -55,12 +56,12 @@ postprocess:
 
 # Run tests
 [group('development')]
-test:
+test: install
     uv run pytest
 
 # Run tests with coverage
 [group('development')]
-test-cov:
+test-cov: install
     uv run pytest --cov=. --cov-report=term-missing
 
 # Lint code
