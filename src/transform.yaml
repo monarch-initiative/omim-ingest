@@ -8,7 +8,7 @@ name: "omim_gene_to_disease"
 reader:
   format: "csv"
   files:
-    - "../../data/morbidmap.txt"
+    - "./data/morbidmap.txt"
   delimiter: "\t"
   comment_char: "#"  # Skip comment lines starting with #
   header_mode: 3  # After filtering comments, line 1 is the header
