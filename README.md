@@ -1,44 +1,41 @@
-# omim-ingest
+# OMIM
 
-Koza ingest for OMIM gene-to-disease associations, transforming morbidmap data into Biolink model format.
+[OMIM](https://omim.org/) (Online Mendelian Inheritance in Man) is a comprehensive database of human genes and genetic phenotypes, with a particular focus on the molecular relationship between genetic variation and phenotypic expression.
 
-## Data Source
+Data is downloaded from OMIM's data portal (requires access key): the `morbidmap.txt` file which maps diseases to their associated genes.
 
-[OMIM](https://omim.org/) (Online Mendelian Inheritance in Man) is a comprehensive database of human genes and genetic phenotypes.
+## Gene to Disease
 
-Data is downloaded from OMIM's data portal (requires access key).
+Each row in morbidmap represents a disease-gene association with a confidence level (1-4) and an optional susceptibility marker `{}`. These are used to determine the association type and predicate:
 
-## Output
+| Confidence Level | Susceptibility | Association Type | Predicate |
+|---|---|---|---|
+| 3 (molecular basis known) | No | `CausalGeneToDiseaseAssociation` | `biolink:causes` |
+| 1 or 2 (mapped gene/phenotype) | No | `CorrelatedGeneToDiseaseAssociation` | `biolink:contributes_to` |
+| Any | Yes `{}` | `CorrelatedGeneToDiseaseAssociation` | `biolink:contributes_to` |
+| 4 (chromosomal abnormality) | — | Skipped | — |
 
-This ingest produces:
-- **Gene-to-disease associations** - Links OMIM gene entries to disease phenotypes
-  - `CausalGeneToDiseaseAssociation` with `biolink:causes` for molecular basis known (3)
-  - `CorrelatedGeneToDiseaseAssociation` with `biolink:contributes_to` for mapped associations (1, 2) and susceptibility markers
+**Biolink Captured:**
 
-## Usage
+- `biolink:CausalGeneToDiseaseAssociation`
+    - id (UUID)
+    - subject (`OMIM:{gene_mim}`)
+    - predicate (`biolink:causes`)
+    - object (`OMIM:{disease_mim}`)
+    - knowledge_level (`not_provided`)
+    - agent_type (`not_provided`)
 
-```bash
-# Set OMIM download key
-export MONARCH_OMIM_DOWNLOAD_KEY=your_key_here
+- `biolink:CorrelatedGeneToDiseaseAssociation`
+    - id (UUID)
+    - subject (`OMIM:{gene_mim}`)
+    - predicate (`biolink:contributes_to`)
+    - object (`OMIM:{disease_mim}`)
+    - knowledge_level (`not_provided`)
+    - agent_type (`not_provided`)
 
-# Install dependencies
-just install
+## Citation
 
-# Run full pipeline
-just run
-
-# Or run steps individually
-just download      # Download OMIM morbidmap
-just transform-all # Run Koza transform
-just test          # Run tests
-```
-
-## Requirements
-
-- Python 3.10+
-- [uv](https://github.com/astral-sh/uv) package manager
-- [just](https://github.com/casey/just) command runner
-- MONARCH_OMIM_DOWNLOAD_KEY environment variable
+Amberger JS, Bocchini CA, Scott AF, Hamosh A. OMIM.org: leveraging knowledge across phenotype-gene relationships. Nucleic Acids Research. 2019;47(D1):D1038-D1043. doi: 10.1093/nar/gky1151. PMID: 30445645
 
 ## License
 
