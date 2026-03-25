@@ -130,6 +130,8 @@ def test_standard_association(standard_row_entities):
     assert association.subject == "OMIM:609300"  # Gene MIM number
     assert association.object == "OMIM:202110"  # Disease OMIM ID
     assert association.predicate == "biolink:causes"  # Molecular basis known
+    assert association.primary_knowledge_source == "infores:omim"
+    assert association.aggregator_knowledge_source == ["infores:monarchinitiative"]
 
 
 def test_provisional_association(provisional_row_entities):
@@ -142,6 +144,8 @@ def test_provisional_association(provisional_row_entities):
     assert association.subject == "OMIM:100678"
     assert association.object == "OMIM:614055"
     assert association.predicate == "biolink:contributes_to"  # Confidence level 1
+    assert association.primary_knowledge_source == "infores:omim"
+    assert association.aggregator_knowledge_source == ["infores:monarchinitiative"]
 
 
 def test_nondisease_association(nondisease_row_entities):
@@ -154,6 +158,8 @@ def test_nondisease_association(nondisease_row_entities):
     assert association.subject == "OMIM:604862"
     assert association.object == "OMIM:613393"
     assert association.predicate == "biolink:causes"  # Confidence level 3
+    assert association.primary_knowledge_source == "infores:omim"
+    assert association.aggregator_knowledge_source == ["infores:monarchinitiative"]
 
 
 def test_susceptibility_association(susceptibility_row_entities):
@@ -171,6 +177,8 @@ def test_susceptibility_association(susceptibility_row_entities):
     assert association.subject == "OMIM:600451"
     assert association.object == "OMIM:614279"
     assert association.predicate == "biolink:contributes_to"
+    assert association.primary_knowledge_source == "infores:omim"
+    assert association.aggregator_knowledge_source == ["infores:monarchinitiative"]
 
 
 def test_provisional_susceptibility_association(provisional_susceptibility_row_entities):
@@ -188,6 +196,8 @@ def test_provisional_susceptibility_association(provisional_susceptibility_row_e
     assert association.subject == "OMIM:162230"
     assert association.object == "OMIM:105400"
     assert association.predicate == "biolink:contributes_to"
+    assert association.primary_knowledge_source == "infores:omim"
+    assert association.aggregator_knowledge_source == ["infores:monarchinitiative"]
 
 
 def test_confidence_level_2(confidence_level_2_row_entities):
