@@ -36,6 +36,8 @@ writer:
     - category
     - knowledge_level
     - agent_type
+    - primary_knowledge_source
+    - aggregator_knowledge_source
 
   min_node_count: 0  # Not creating nodes
   min_edge_count: 7000  # File has ~7437 rows, expect most to parse successfully

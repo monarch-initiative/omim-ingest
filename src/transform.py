@@ -104,6 +104,8 @@ def transform_record(koza_transform: KozaTransform, row: dict[str, Any]) -> list
         subject=f"OMIM:{gene_mim}",
         predicate=predicate,
         object=f"OMIM:{disease_omim_id}",
+        primary_knowledge_source="infores:omim",
+        aggregator_knowledge_source=["infores:monarchinitiative"],
         knowledge_level=KnowledgeLevelEnum.not_provided,
         agent_type=AgentTypeEnum.not_provided,
     )

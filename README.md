@@ -22,6 +22,8 @@ Each row in morbidmap represents a disease-gene association with a confidence le
     - subject (`OMIM:{gene_mim}`)
     - predicate (`biolink:causes`)
     - object (`OMIM:{disease_mim}`)
+    - primary_knowledge_source (`infores:omim`)
+    - aggregator_knowledge_source (`infores:monarchinitiative`)
     - knowledge_level (`not_provided`)
     - agent_type (`not_provided`)
 
@@ -30,6 +32,8 @@ Each row in morbidmap represents a disease-gene association with a confidence le
     - subject (`OMIM:{gene_mim}`)
     - predicate (`biolink:contributes_to`)
     - object (`OMIM:{disease_mim}`)
+    - primary_knowledge_source (`infores:omim`)
+    - aggregator_knowledge_source (`infores:monarchinitiative`)
     - knowledge_level (`not_provided`)
     - agent_type (`not_provided`)
 
