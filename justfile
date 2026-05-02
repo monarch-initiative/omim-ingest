@@ -19,9 +19,9 @@ install:
 
 # ============== Ingest Pipeline ==============
 
-# Full pipeline: download -> transform -> postprocess
+# Full pipeline: download -> transform -> postprocess -> metadata
 [group('ingest')]
-run: download transform-all postprocess
+run: download transform-all postprocess metadata
     @echo "Done!"
 
 # Download source data
@@ -41,6 +41,10 @@ transform-all: download
         fi
     done
 
+# Emit output/release-metadata.yaml describing this build's upstream sources and artifacts
+[group('ingest')]
+metadata:
+    uv run python scripts/write_metadata.py
 
 # Run specific transform
 [group('ingest')]
