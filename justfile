@@ -19,9 +19,9 @@ install:
 
 # ============== Ingest Pipeline ==============
 
-# Full pipeline: download -> transform -> postprocess
+# Full pipeline: download -> transform -> postprocess -> metadata
 [group('ingest')]
-run: download transform-all postprocess
+run: download transform-all postprocess metadata
     @echo "Done!"
 
 # Download source data
@@ -45,10 +45,6 @@ transform-all: download
 [group('ingest')]
 metadata:
     uv run python scripts/write_metadata.py
-
-# Run full pipeline: install, download, transform, metadata, test
-[group('ingest')]
-run: test transform-all metadata
 
 # Run specific transform
 [group('ingest')]
