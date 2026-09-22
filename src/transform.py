@@ -11,7 +11,7 @@ OMIM morbidmap format:
 
 Biolink mapping:
 - (3) → CausalGeneToDiseaseAssociation with "biolink:causes"
-- (1)/(2) → CorrelatedGeneToDiseaseAssociation with "biolink:contributes_to"
+- (1)/(2) → GeneToDiseaseAssociation with "biolink:contributes_to"
 - { } susceptibility → "biolink:contributes_to" (overrides confidence level)
 - (4) chromosomal → skip (not gene-to-disease)
 
@@ -20,14 +20,13 @@ with HPOA's POLYGENIC classification which uses contributes_to for these cases.
 """
 
 import re
-import uuid
 from typing import Any
 
 import koza
 from biolink_model.datamodel.pydanticmodel_v2 import (
     AgentTypeEnum,
     CausalGeneToDiseaseAssociation,
-    CorrelatedGeneToDiseaseAssociation,
+    GeneToDiseaseAssociation,
     KnowledgeLevelEnum,
 )
 from koza import KozaTransform
@@ -88,7 +87,7 @@ def transform_record(koza_transform: KozaTransform, row: dict[str, Any]) -> list
         # This aligns with HPOA's POLYGENIC classification which uses contributes_to
         # Examples: {Schizophrenia susceptibility}, 615232 (3) → contributes_to
         predicate = "biolink:contributes_to"
-        association_class = CorrelatedGeneToDiseaseAssociation
+        association_class = GeneToDiseaseAssociation
     elif confidence_level == 3:
         # Molecular basis known - causal relationship
         predicate = "biolink:causes"
@@ -96,11 +95,10 @@ def transform_record(koza_transform: KozaTransform, row: dict[str, Any]) -> list
     else:  # confidence_level in (1, 2)
         # Mapped gene or phenotype - correlated relationship
         predicate = "biolink:contributes_to"
-        association_class = CorrelatedGeneToDiseaseAssociation
+        association_class = GeneToDiseaseAssociation
 
     # Create association
     association = association_class(
-        id=f"uuid:{uuid.uuid4()}",
         subject=f"OMIM:{gene_mim}",
         predicate=predicate,
         object=f"OMIM:{disease_omim_id}",
