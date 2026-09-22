@@ -5,8 +5,8 @@ Tests are based on actual OMIM morbidmap.txt data to handle various edge cases.
 
 OMIM morbidmap format documentation:
 - Numbers in parentheses indicate confidence levels:
-  (1) = disorder positioned by mapping of wildtype gene → CorrelatedGeneToDiseaseAssociation
-  (2) = disease phenotype itself was mapped → CorrelatedGeneToDiseaseAssociation
+  (1) = disorder positioned by mapping of wildtype gene → GeneToDiseaseAssociation
+  (2) = disease phenotype itself was mapped → GeneToDiseaseAssociation
   (3) = molecular basis of disorder is known → CausalGeneToDiseaseAssociation
   (4) = chromosomal abnormality → SKIP (not gene-to-disease)
 - Brackets [ ] = "nondiseases" (genetic variations with abnormal lab values)
@@ -16,7 +16,7 @@ OMIM morbidmap format documentation:
 Biolink Model Mappings:
 - CausalGeneToDiseaseAssociation uses predicate subproperty of "affects"
   → Use "biolink:causes" (RO:0003303) for confidence level (3)
-- CorrelatedGeneToDiseaseAssociation uses predicate subproperty of "correlated with"
+- GeneToDiseaseAssociation (parent class) allows contributes_to; the Correlated subclass is closed to correlated_with predicates
   → Use "biolink:contributes_to" (RO:0002326) for levels (1) and (2)
   → Use "biolink:contributes_to" for susceptibility cases {braces} (overrides confidence)
 
@@ -25,7 +25,7 @@ https://koza.monarchinitiative.org/Usage/testing/
 """
 
 import pytest
-from biolink_model.datamodel.pydanticmodel_v2 import CausalGeneToDiseaseAssociation, CorrelatedGeneToDiseaseAssociation
+from biolink_model.datamodel.pydanticmodel_v2 import CausalGeneToDiseaseAssociation, GeneToDiseaseAssociation
 
 from transform import transform_record
 
@@ -140,7 +140,7 @@ def test_provisional_association(provisional_row_entities):
     assert len(provisional_row_entities) == 1
 
     association = provisional_row_entities[0]
-    assert isinstance(association, CorrelatedGeneToDiseaseAssociation)
+    assert isinstance(association, GeneToDiseaseAssociation)
     assert association.subject == "OMIM:100678"
     assert association.object == "OMIM:614055"
     assert association.predicate == "biolink:contributes_to"  # Confidence level 1
@@ -173,7 +173,7 @@ def test_susceptibility_association(susceptibility_row_entities):
 
     association = susceptibility_row_entities[0]
     # Susceptibility overrides confidence (3) → contributes_to
-    assert isinstance(association, CorrelatedGeneToDiseaseAssociation)
+    assert isinstance(association, GeneToDiseaseAssociation)
     assert association.subject == "OMIM:600451"
     assert association.object == "OMIM:614279"
     assert association.predicate == "biolink:contributes_to"
@@ -192,7 +192,7 @@ def test_provisional_susceptibility_association(provisional_susceptibility_row_e
 
     association = provisional_susceptibility_row_entities[0]
     # Susceptibility takes precedence over confidence (3) → contributes_to
-    assert isinstance(association, CorrelatedGeneToDiseaseAssociation)
+    assert isinstance(association, GeneToDiseaseAssociation)
     assert association.subject == "OMIM:162230"
     assert association.object == "OMIM:105400"
     assert association.predicate == "biolink:contributes_to"
